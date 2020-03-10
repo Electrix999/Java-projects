@@ -116,9 +116,15 @@ public class Polinom {
 				}
 				else//daca gradele monoamelor selectate de la cele 2 polinoame sunt egale inseamna case face adunare intre monoame, rezultatul se trece in polinomul nou format
 				{
-					newPoli.adauga(poli.get(i).adunare(listaX.get(j)));
+					Monom z=poli.get(i).adunare(listaX.get(j));
+					if(z.getCoef()!=0)
+					{
+						newPoli.adauga(z);
+						
+					}
 					i++;
 					j++;
+					
 				}	
 			}
 			
@@ -151,30 +157,41 @@ public class Polinom {
 		
 	}
 	
-	public Polinom impartire(Polinom x)
+	public List<Polinom> impartire(Polinom x)//returneaza lista de polinoame
 	{
 		
-		
+		//daca al doilea polinom e mai mare afiseaza un mesaj de eroare 
+		List<Polinom> rezultat=new ArrayList<Polinom>();
 		Polinom newPoli=new Polinom();
+		Polinom rest=new Polinom();
+		rest=this;
 		
-		Polinom rest=this;
-		while(rest.getPoli().get(0).getGrad()!=0)
+		int i=0;
+		while(rest.getPoli().get(0).getGrad()>0)
 		{
 			
+			System.out.println(rest.getPoli().get(0).getGrad());
 			Polinom cat=new Polinom();
 			
 			cat.adauga(rest.getPoli().get(0).impartire(x.getPoli().get(0)));
 			rest=rest.scadere(cat.inmultire(x));
-				
+			System.out.println("rest: "+rest);
 	    	newPoli=newPoli.adunare(cat);
 	    	
-	    	if(rest.getPoli().get(0).getGrad()<x.getPoli().get(0).getGrad())
+	    	
+	    	if(rest.getPoli().size()==0 || rest.getPoli().get(0).getGrad()<x.getPoli().get(0).getGrad())
 	    	{
 	    		break;
 	    	}
+	    	
 			
 		}
-		return newPoli;
+		
+		System.out.println("cat :"+newPoli);
+		System.out.println("rest: "+rest);
+		rezultat.add(newPoli);
+		rezultat.add(rest);
+		return rezultat;
 		
 	}
 	
@@ -226,11 +243,31 @@ public class Polinom {
 				{
 					a=a+"+"+df2.format(listM.getCoef());
 				}
-				else
+				else if(listM.getGrad()==1)
 				{
-					a=a+"+"+df2.format(listM.getCoef())+"X"+"^"+listM.getGrad();
+					if(listM.getCoef()!=1)
+					{
+						a=a+"+"+df2.format(listM.getCoef())+"X";
+					}
+					else
+					{
+						a=a+"+"+"X";
+					}
+					
 				}
 				
+				else 
+				{
+					if(listM.getCoef()!=1)
+					{
+						a=a+"+"+df2.format(listM.getCoef())+"X"+"^"+listM.getGrad();
+					}
+					else
+					{
+						a=a+"+"+"X"+"^"+listM.getGrad();
+					}
+					
+				}
 			}
 			else if(listM.getCoef()<0)
 			{
@@ -238,9 +275,29 @@ public class Polinom {
 				{
 					a=a+df2.format(listM.getCoef());
 				}
+				else if(listM.getGrad()==1)
+				{
+					if(listM.getCoef()!=-1)
+					{
+						a=a+df2.format(listM.getCoef())+"X";
+					}
+					else
+					{
+						a=a+"-"+"X";
+					}
+					
+				}
 				else
 				{
-					a=a+df2.format(listM.getCoef())+"X"+"^"+listM.getGrad();
+					if(listM.getCoef()!=-1)
+					{
+						a=a+df2.format(listM.getCoef())+"X"+"^"+listM.getGrad();
+					}
+					else
+					{
+						a=a+"-"+"X"+"^"+listM.getGrad();
+					}
+					
 				}
 				
 			}

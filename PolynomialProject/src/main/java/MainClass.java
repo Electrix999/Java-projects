@@ -5,37 +5,39 @@ public class MainClass {
 	public static void main(String[] args) {
 		
 		List<Monom> x=new ArrayList<Monom>();
-		x.add(new Monom(4,4));
-		x.add(new Monom(1,2));
-		x.add(new Monom(1,0));
+		x.add(new Monom(3,3));
+		x.add(new Monom(-2,2));
+		x.add(new Monom(6,0));
+	//	x.add(new Monom(-3,0));
 		
 		List<Monom> y=new ArrayList<Monom>();
-		y.add(new Monom(3,2));
-	//	y.add(new Monom(-1,3));
-	//	y.add(new Monom(1,1));
-//		y.add(new Monom(3,0));
+		y.add(new Monom(1,2));
+		y.add(new Monom(-1,0));
+	
 		Polinom a=new Polinom(x);
 		Polinom b=new Polinom(y);
 		Polinom c=b.adunare(a);
 		Polinom d=a.scadere(b);
 		Polinom e=a.inmultire(b);
-		//Polinom f=a.impartire(b);
+		List <Polinom> f=a.impartire(b);
+		
 		
 		System.out.println(a);
 		System.out.println(b);
-		System.out.println(c);
-		System.out.println(d);
+		System.out.println("adunare: "+c);
+		System.out.println("scadere: "+d);
 		System.out.println(e);
-		//System.out.println(f);
-		System.out.println(a.integrare());
-		System.out.println((a.integrare()).derivare());
+		System.out.println("cat: "+f.get(0));
+		System.out.println("rest: "+f.get(1));
+	//	System.out.println(a.integrare());
+	//	System.out.println((a.integrare()).derivare());
 		
 		
 		
 		
-		Model model=new Model();
-		View view=new View(model);
-		Control control=new Control(model,view);
+		
+		View view=new View();
+		Control control=new Control(view);
 		view.setVisible(true);
 
 	}

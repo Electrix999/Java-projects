@@ -7,13 +7,13 @@ import java.util.List;
 
 
 public class Control {
-	private Model m_model;
+	
 	private View m_view;
 	
 	
-	public Control(Model model,View view)
+	public Control(View view)
 	{
-		m_model=model;
+		
 		m_view=view;
 		
 		view.addListener(new AddListener());
@@ -63,7 +63,7 @@ public class Control {
 				rezultat=pol1.adunare(pol2);
 				
 				m_view.setResult(rezultat.toString());
-				
+				m_view.setRest("-");
 				
 			}catch(NumberFormatException exp)
 			{
@@ -100,7 +100,7 @@ public class Control {
 					rezultat=pol1.scadere(pol2);
 					
 					m_view.setResult(rezultat.toString());
-					
+					m_view.setRest("-");
 					
 				}catch(NumberFormatException exp)
 				{
@@ -137,7 +137,7 @@ class MulListener implements ActionListener{
 					rezultat=pol1.inmultire(pol2);
 					
 					m_view.setResult(rezultat.toString());
-					
+					m_view.setRest("-");
 					
 				}catch(NumberFormatException exp)
 				{
@@ -170,11 +170,13 @@ class DivListener implements ActionListener{
 			Polinom pol1=Control.makePolinom(userInput1);
 			Polinom pol2=Control.makePolinom(userInput2);
 			Polinom rezultat=new Polinom();
+			Polinom rest=new Polinom();
 			
-			rezultat=pol1.impartire(pol2);
+			rezultat=(pol1.impartire(pol2)).get(0);
+			rest=(pol1.impartire(pol2)).get(1);
 			
 			m_view.setResult(rezultat.toString());
-			
+			m_view.setRest(rest.toString());
 			
 		}catch(NumberFormatException exp)
 		{
@@ -208,7 +210,7 @@ class DerListener implements ActionListener{
 			rezultat=pol1.derivare();
 			
 			m_view.setResult(rezultat.toString());
-			
+			m_view.setRest("-");
 			
 		}catch(NumberFormatException exp)
 		{
@@ -242,7 +244,7 @@ class IListener implements ActionListener{
 			rezultat=pol1.integrare();
 			
 			m_view.setResult(rezultat.toString());
-			
+			m_view.setRest("-");
 			
 		}catch(NumberFormatException exp)
 		{

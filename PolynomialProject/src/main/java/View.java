@@ -8,9 +8,11 @@ public class View extends JFrame {
 	private JLabel label1=new JLabel("Polinom 1:");
 	private JLabel label2=new JLabel("Polinom 2:");
 	private JLabel label3=new JLabel("Rezultat:");
+	private JLabel label4=new JLabel("Rest:");
 	private JTextField poliInput1=new JTextField(30);
 	private JTextField poliInput2=new JTextField(30);
 	private JTextField poliResult=new JTextField(30);
+	private JTextField rest=new JTextField(10);
 	private JButton addBtn=new JButton("ADD");
 	private JButton subBtn=new JButton("SUB");
 	private JButton mulBtn=new JButton("MUL");
@@ -18,14 +20,18 @@ public class View extends JFrame {
 	private JButton derBtn=new JButton("DER'");
 	private JButton iBtn=new JButton("I");
 	
-	private Model model;
 	
-	public View(Model model)
+	
+	public View()
 	{
-		this.model=model;
-		model.setValue(Model.INITIAL_VALUE);
+		
+		
 		poliResult.setText("-");
 		poliResult.setEditable(false);
+		
+		rest.setText("-");
+		rest.setEditable(false);
+		
 		JPanel btnPanel=new JPanel(new FlowLayout());
 		btnPanel.add(addBtn);
 		btnPanel.add(subBtn);
@@ -41,6 +47,9 @@ public class View extends JFrame {
 		panel2.add(poliInput2);
 		panel2.add(label3);
 		panel2.add(poliResult);
+		panel2.add(label4);
+		panel2.add(rest);
+		
 		
 		JPanel bigPanel=new JPanel(new GridLayout(2,1));
 		bigPanel.add(panel2);
@@ -51,10 +60,7 @@ public class View extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
-	public void reset()
-	{
-		poliResult.setText(Model.INITIAL_VALUE);
-	}
+	
 	
 	public String getPoli1()
 	{
@@ -68,6 +74,11 @@ public class View extends JFrame {
 	public void setResult(String newResult)
 	{
 		poliResult.setText(newResult);
+	}
+	
+	public void setRest(String newResult)
+	{
+		rest.setText(newResult);
 	}
 	public void showError(String message)
 	{
