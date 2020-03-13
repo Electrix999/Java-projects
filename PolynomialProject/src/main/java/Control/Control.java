@@ -1,8 +1,13 @@
+package Control;
 
 
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import Model.Monom;
+import Model.Polinom;
+import View.View;
 
 
 
@@ -169,6 +174,10 @@ class DivListener implements ActionListener{
 			}
 			Polinom pol1=Control.makePolinom(userInput1);
 			Polinom pol2=Control.makePolinom(userInput2);
+			if(pol1.getPoli().get(0).getGrad()<pol2.getPoli().get(0).getGrad())
+			{
+				throw new GradeException("First polynom grade is smaller then second polynom grade!!");
+			}
 			Polinom rezultat=new Polinom();
 			Polinom rest=new Polinom();
 			
@@ -185,6 +194,10 @@ class DivListener implements ActionListener{
 		catch(BadInp ex)
 		{
 			m_view.showError("You forgot to put 1 grade!");
+		}
+		catch(GradeException exp)
+		{
+			m_view.showError(exp.getMessage());
 		}
 		
 		

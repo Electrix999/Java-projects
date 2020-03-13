@@ -1,5 +1,10 @@
 import java.util.*;
 
+import Control.Control;
+import Model.Monom;
+import Model.Polinom;
+import View.View;
+
 public class MainClass {
 
 	public static void main(String[] args) {

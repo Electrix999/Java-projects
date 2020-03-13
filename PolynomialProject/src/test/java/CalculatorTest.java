@@ -2,6 +2,9 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import Model.Monom;
+import Model.Polinom;
+
 public class CalculatorTest {
 	
 	private static Polinom polinom1;
@@ -50,16 +53,21 @@ public class CalculatorTest {
 	
 	}
 	
-	/*@Test
+	@Test
 	public void divTest() {
+	
 		Polinom rez=new Polinom();
-		rez=polinom1.impartire(polinom2);
+		Polinom rest=new Polinom();
+		rez=polinom1.impartire(polinom2).get(0);
+		rest=polinom1.impartire(polinom2).get(1);
 		Polinom pol=new Polinom();
+		Polinom pol2=new Polinom();
 		pol.adauga(new Monom(2,0));
-		pol.adauga(new Monom(1,-1));
+		pol2.adauga(new Monom(2,2));
 		assertEquals(1,rez.equals(pol));
+		assertEquals(1,rest.equals(pol2));
 		
-	}*/
+	}
 	
 	@Test
 	public void derivareTest() {

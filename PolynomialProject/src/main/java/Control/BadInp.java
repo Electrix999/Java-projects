@@ -1,3 +1,4 @@
+package Control;
 
 public class BadInp extends Exception{
 
