@@ -147,40 +147,40 @@ public class Polinom {
 			Polinom newPoliCopy=new Polinom();
 			for(Monom lMonom:listaX)
 			{
-				newPoliCopy.adauga(monom.inmultire(lMonom));
+				newPoliCopy.adauga(monom.inmultire(lMonom));//se inmulteste pe rand fiecare monom al primului polinom cu toate monoamele celui de al doilea,astfel obtinandu-se cate un polinom pentru fiecare inmultire
 				
 			}
 			
-	    	newPoli=newPoli.adunare(newPoliCopy);
+	    	newPoli=newPoli.adunare(newPoliCopy);//la final se aduna toate polinoamele obtinute in urma inmultirii
 			
 		}
 		return newPoli;
 		
 	}
 	
-	public List<Polinom> impartire(Polinom x)//returneaza lista de polinoame
+	public List<Polinom> impartire(Polinom x)
 	{
 		
-		//daca al doilea polinom e mai mare afiseaza un mesaj de eroare 
+		
 		List<Polinom> rezultat=new ArrayList<Polinom>();
 		Polinom newPoli=new Polinom();
 		Polinom rest=new Polinom();
-		rest=this;
+		rest=this;//initial restul il consideram deimpartitul
 		
-		int i=0;
+		
 		while(rest.getPoli().get(0).getGrad()>0)
 		{
 			
-			System.out.println(rest.getPoli().get(0).getGrad());
+			
 			Polinom cat=new Polinom();
 			
-			cat.adauga(rest.getPoli().get(0).impartire(x.getPoli().get(0)));
+			cat.adauga(rest.getPoli().get(0).impartire(x.getPoli().get(0)));//se imparte primul monom al restului cu primul monom al impartitorului,astfel obtinandu-se fiecare monom al catului
 			rest=rest.scadere(cat.inmultire(x));
-			System.out.println("rest: "+rest);
-	    	newPoli=newPoli.adunare(cat);
+			
+	    	newPoli=newPoli.adunare(cat);//newPoli este catul propriu zis la final
 	    	
 	    	
-	    	if(rest.getPoli().size()==0 || rest.getPoli().get(0).getGrad()<x.getPoli().get(0).getGrad())
+	    	if(rest.getPoli().size()==0 || rest.getPoli().get(0).getGrad()<x.getPoli().get(0).getGrad())//cand gradul restului e 0 sau cand gradul impartitorului>gradul restului  se opreste bucla 
 	    	{
 	    		break;
 	    	}
@@ -188,8 +188,7 @@ public class Polinom {
 			
 		}
 		
-		System.out.println("cat :"+newPoli);
-		System.out.println("rest: "+rest);
+		
 		rezultat.add(newPoli);
 		rezultat.add(rest);
 		return rezultat;
@@ -216,7 +215,7 @@ public class Polinom {
 		return newPoli;
 	}
 	
-	public int equals(Polinom x)
+	public int equals(Polinom x)//metoda facuta pentru test
 	{
 		int i=0;
 		for(Monom lista:x.getPoli())
@@ -253,10 +252,8 @@ public class Polinom {
 					else
 					{
 						a=a+"+"+"X";
-					}
-					
+					}	
 				}
-				
 				else 
 				{
 					if(listM.getCoef()!=1)
@@ -267,7 +264,6 @@ public class Polinom {
 					{
 						a=a+"+"+"X"+"^"+listM.getGrad();
 					}
-					
 				}
 			}
 			else if(listM.getCoef()<0)
@@ -286,7 +282,6 @@ public class Polinom {
 					{
 						a=a+"-"+"X";
 					}
-					
 				}
 				else
 				{
@@ -297,10 +292,8 @@ public class Polinom {
 					else
 					{
 						a=a+"-"+"X"+"^"+listM.getGrad();
-					}
-					
+					}	
 				}
-				
 			}
 		}
 		return a;
