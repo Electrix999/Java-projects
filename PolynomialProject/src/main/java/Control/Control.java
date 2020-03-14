@@ -1,6 +1,4 @@
 package Control;
-
-
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,13 +7,9 @@ import Model.Monom;
 import Model.Polinom;
 import View.View;
 
-
-
 public class Control {
 	
 	private View m_view;
-	
-	
 	public Control(View view)
 	{
 		
@@ -28,6 +22,8 @@ public class Control {
 		view.derListener(new DerListener());
 		view.iListener(new IListener());
 	}
+	
+
 	
 	public static Polinom makePolinom(String[] input1)
 	{
@@ -115,8 +111,6 @@ public class Control {
 				{
 					m_view.showError("You forgot to put 1 grade!");
 				}
-				
-				
 			}
 		}
 		
