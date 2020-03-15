@@ -1,5 +1,5 @@
 package Model;
-import java.util.*;
+
 
 
 public class Monom {
@@ -16,16 +16,8 @@ public class Monom {
 		return grad;
 	}
 
-	public void setGrad(int grad) {
-		this.grad = grad;
-	}
-
 	public double getCoef() {
 		return coef;
-	}
-
-	public void setCoef(double coef) {
-		this.coef = coef;
 	}
 	
 	public int max(Monom x)

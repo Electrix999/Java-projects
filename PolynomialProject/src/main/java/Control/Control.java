@@ -12,11 +12,11 @@ import java.util.regex.Matcher;
 
 public class Control {
 	
-	private View m_view;
+	private View mView;
 	public Control(View view)
 	{
 		
-		m_view=view;
+		mView=view;
 		
 		view.addListener(new AddListener());
 		view.subListener(new SubListener());
@@ -45,7 +45,7 @@ public class Control {
 		return x;
 	}
 	
-	public static Polinom RegexPoly(String exp) throws BadInp
+	public static Polinom regexPoly(String exp) throws BadInp
 	{
 		List<Monom> x=new ArrayList<Monom>();
 		
@@ -90,19 +90,19 @@ public class Control {
 			{
 				
 				
-				Polinom pol1=Control.RegexPoly(m_view.getPoli1());
-				Polinom pol2=Control.RegexPoly(m_view.getPoli2());
+				Polinom pol1=Control.regexPoly(mView.getPoli1());
+				Polinom pol2=Control.regexPoly(mView.getPoli2());
 				Polinom rezultat=new Polinom();
 				
 				rezultat=pol1.adunare(pol2);//adunare intre polinoame
 				
-				m_view.setResult(rezultat.toString());
-				m_view.setRest("-");
+				mView.setResult(rezultat.toString());
+				mView.setRest("-");
 				
 			}
 			catch(BadInp exp)
 			{
-				m_view.showError("Bad Input!");
+				mView.showError("Bad Input!");
 			}
 			
 			
@@ -117,19 +117,19 @@ public class Control {
 				try
 				{
 					
-					Polinom pol1=Control.RegexPoly(m_view.getPoli1());
-					Polinom pol2=Control.RegexPoly(m_view.getPoli2());
+					Polinom pol1=Control.regexPoly(mView.getPoli1());
+					Polinom pol2=Control.regexPoly(mView.getPoli2());
 					Polinom rezultat=new Polinom();
 					
 					rezultat=pol1.scadere(pol2);//scadere intre polinoame 
 					
-					m_view.setResult(rezultat.toString());
-					m_view.setRest("-");
+					mView.setResult(rezultat.toString());
+					mView.setRest("-");
 					
 				}
 				catch(BadInp exp)
 				{
-					m_view.showError("Bad Input!");
+					mView.showError("Bad Input!");
 				}
 			}
 		}
@@ -141,19 +141,19 @@ class MulListener implements ActionListener{
 				try
 				{
 					
-					Polinom pol1=Control.RegexPoly(m_view.getPoli1());
-					Polinom pol2=Control.RegexPoly(m_view.getPoli2());
+					Polinom pol1=Control.regexPoly(mView.getPoli1());
+					Polinom pol2=Control.regexPoly(mView.getPoli2());
 					Polinom rezultat=new Polinom();
 					
 					rezultat=pol1.inmultire(pol2);//inmultire intre polinoame
 					
-					m_view.setResult(rezultat.toString());
-					m_view.setRest("-");
+					mView.setResult(rezultat.toString());
+					mView.setRest("-");
 					
 				}
 				catch(BadInp exp)
 				{
-					m_view.showError("Bad Input!");
+					mView.showError("Bad Input!");
 				}
 				
 				
@@ -167,8 +167,8 @@ class DivListener implements ActionListener{
 		try
 		{
 			
-			Polinom pol1=Control.RegexPoly(m_view.getPoli1());
-			Polinom pol2=Control.RegexPoly(m_view.getPoli2());
+			Polinom pol1=Control.regexPoly(mView.getPoli1());
+			Polinom pol2=Control.regexPoly(mView.getPoli2());
 			if(pol1.getPoli().get(0).getGrad()<pol2.getPoli().get(0).getGrad())//daca gradul primului polinom < se genereaza o exceptie
 			{
 				throw new GradeException("Gradul primului polinom trebuie sa fie mai mare decat gradul celui de al doilea!!");
@@ -179,17 +179,17 @@ class DivListener implements ActionListener{
 			rezultat=(pol1.impartire(pol2)).get(0);
 			rest=(pol1.impartire(pol2)).get(1);
 			
-			m_view.setResult(rezultat.toString());
-			m_view.setRest(rest.toString());
+			mView.setResult(rezultat.toString());
+			mView.setRest(rest.toString());
 			
 		}
 		catch(BadInp exp)
 		{
-			m_view.showError("Bad Input!");
+			mView.showError("Bad Input!");
 		}
 		catch(GradeException exp)
 		{
-			m_view.showError(exp.getMessage());
+			mView.showError(exp.getMessage());
 		}
 		
 		
@@ -203,18 +203,18 @@ class DerListener implements ActionListener{
 		try
 		{
 			
-			Polinom pol1=Control.RegexPoly(m_view.getPoli1());
+			Polinom pol1=Control.regexPoly(mView.getPoli1());
 			Polinom rezultat=new Polinom();
 			
 			rezultat=pol1.derivare();//se deriveaza primul polinom
 			
-			m_view.setResult(rezultat.toString());
-			m_view.setRest("-");
+			mView.setResult(rezultat.toString());
+			mView.setRest("-");
 			
 		}
 		catch(BadInp exp)
 		{
-			m_view.showError("Bad Input!");
+			mView.showError("Bad Input!");
 		}
 		
 	}
@@ -228,18 +228,18 @@ class IListener implements ActionListener{
 		try
 		{
 			
-			Polinom pol1=Control.RegexPoly(m_view.getPoli1());
+			Polinom pol1=Control.regexPoly(mView.getPoli1());
 			Polinom rezultat=new Polinom();
 			
 			rezultat=pol1.integrare();//se integreaza primul polinom
 			
-			m_view.setResult(rezultat.toString());
-			m_view.setRest("-");
+			mView.setResult(rezultat.toString());
+			mView.setRest("-");
 			
 		}
 		catch(BadInp exp)
 		{
-			m_view.showError("Bad Input!");
+			mView.showError("Bad Input!");
 		}
 		
 		
