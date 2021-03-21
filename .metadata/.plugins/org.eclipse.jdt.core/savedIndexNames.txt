@@ -1,0 +1,5 @@
+INDEX VERSION 1.131+E:\Facultate\An2\Sem2\PT2020\pt2020_302210_danila_andrei\.metadata\.plugins\org.eclipse.jdt.core
+3518414358.index
+3738575219.index
+1671692264.index
+4175293188.index

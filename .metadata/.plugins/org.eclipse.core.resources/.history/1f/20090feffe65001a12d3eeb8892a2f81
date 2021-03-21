@@ -1,0 +1,256 @@
+package Control;
+import java.awt.event.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import Model.Monom;
+import Model.Polinom;
+import View.View;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
+public class Control {
+	
+	private View m_view;
+	public Control(View view)
+	{
+		
+		m_view=view;
+		
+		view.addListener(new AddListener());
+		view.subListener(new SubListener());
+		view.mulListener(new MulListener());
+		view.divListener(new DivListener());
+		view.derListener(new DerListener());
+		view.iListener(new IListener());
+	}
+	
+
+	public static Polinom RegexPoly(String exp)
+	{
+		List<Monom> x=new ArrayList<Monom>();
+		
+		Pattern polyPatt=Pattern.compile("([+-]?\\d*)x(\\^([+-]?\\d+))?|([+-]?\\d+)");
+		Matcher matcher = polyPatt.matcher(exp);
+		
+		String coef="";
+		String power="";
+		while (matcher.find()) {
+		    if(matcher.group(4)!=null && matcher.group(3)==null)
+		    {
+		    	coef=matcher.group(4);
+		    	power="0";
+		    }
+		    else if(matcher.group(4)==null && matcher.group(3)==null)
+		    {
+		    	coef=matcher.group(1);
+		    	power="1";
+		    }
+		    else
+		    {
+		    	coef=matcher.group(1);
+		    	power=matcher.group(3);
+		    }
+		    if(Integer.parseInt(coef)!=Double.parseDouble(coef))
+		    x.add(new Monom(Integer.parseInt(coef),Integer.parseInt(power)));
+		}
+		return new Polinom(x);
+	}
+	
+	
+	class AddListener implements ActionListener{
+		
+		public void actionPerformed(ActionEvent e) {
+			String[] userInput1, userInput2;
+
+			try
+			{
+				
+				
+				Polinom pol1=Control.RegexPoly(m_view.getPoli1());
+				Polinom pol2=Control.RegexPoly(m_view.getPoli2());
+				Polinom rezultat=new Polinom();
+				
+				rezultat=pol1.adunare(pol2);
+				
+				m_view.setResult(rezultat.toString());
+				m_view.setRest("-");
+				
+			}catch(NumberFormatException exp)
+			{
+				m_view.showError("Bad input!");
+			}
+			catch(BadInp ex)
+			{
+				m_view.showError("You forgot to put 1 grade!");
+			}
+			
+			
+		}
+	}
+	
+		class SubListener implements ActionListener{
+			
+			public void actionPerformed(ActionEvent e) {
+				String[] userInput1, userInput2;
+
+				try
+				{
+					
+					Polinom pol1=Control.RegexPoly(m_view.getPoli1());
+					Polinom pol2=Control.RegexPoly(m_view.getPoli2());
+					Polinom rezultat=new Polinom();
+					
+					rezultat=pol1.scadere(pol2);
+					
+					m_view.setResult(rezultat.toString());
+					m_view.setRest("-");
+					
+				}catch(NumberFormatException exp)
+				{
+					m_view.showError("Bad input!");
+				}
+				catch(BadInp ex)
+				{
+					m_view.showError("You forgot to put 1 grade!");
+				}
+			}
+		}
+		
+class MulListener implements ActionListener{
+			
+			public void actionPerformed(ActionEvent e) {
+				String[] userInput1, userInput2;
+
+				try
+				{
+					
+					Polinom pol1=Control.RegexPoly(m_view.getPoli1());
+					Polinom pol2=Control.RegexPoly(m_view.getPoli2());
+					Polinom rezultat=new Polinom();
+					
+					rezultat=pol1.inmultire(pol2);
+					
+					m_view.setResult(rezultat.toString());
+					m_view.setRest("-");
+					
+				}catch(NumberFormatException exp)
+				{
+					m_view.showError("Bad input!");
+				}
+				catch(BadInp ex)
+				{
+					m_view.showError("You forgot to put 1 grade!");
+				}
+				
+				
+			}
+		}
+
+class DivListener implements ActionListener{
+	
+	public void actionPerformed(ActionEvent e) {
+		String[] userInput1, userInput2;
+
+		try
+		{
+			
+			Polinom pol1=Control.RegexPoly(m_view.getPoli1());
+			Polinom pol2=Control.RegexPoly(m_view.getPoli2());
+			if(pol1.getPoli().get(0).getGrad()<pol2.getPoli().get(0).getGrad())
+			{
+				throw new GradeException("First polynom grade is smaller then second polynom grade!!");
+			}
+			Polinom rezultat=new Polinom();
+			Polinom rest=new Polinom();
+			
+			rezultat=(pol1.impartire(pol2)).get(0);
+			rest=(pol1.impartire(pol2)).get(1);
+			
+			m_view.setResult(rezultat.toString());
+			m_view.setRest(rest.toString());
+			
+		}catch(NumberFormatException exp)
+		{
+			m_view.showError("Bad input!");
+		}
+		catch(BadInp ex)
+		{
+			m_view.showError("You forgot to put 1 grade!");
+		}
+		catch(GradeException exp)
+		{
+			m_view.showError(exp.getMessage());
+		}
+		
+		
+	}
+}
+
+class DerListener implements ActionListener{
+	
+	public void actionPerformed(ActionEvent e) {
+		String[] userInput1;
+
+		try
+		{
+			
+			Polinom pol1=Control.RegexPoly(m_view.getPoli1());
+			Polinom rezultat=new Polinom();
+			
+			rezultat=pol1.derivare();
+			
+			m_view.setResult(rezultat.toString());
+			m_view.setRest("-");
+			
+		}catch(NumberFormatException exp)
+		{
+			m_view.showError("Bad input!");
+		}
+		catch(BadInp ex)
+		{
+			m_view.showError("You forgot to put 1 grade!");
+		}
+		
+		
+	}
+}
+
+class IListener implements ActionListener{
+	
+	public void actionPerformed(ActionEvent e) {
+		String[] userInput1;
+
+		try
+		{
+			
+			Polinom pol1=Control.RegexPoly(m_view.getPoli1());
+			Polinom rezultat=new Polinom();
+			
+			rezultat=pol1.integrare();
+			
+			m_view.setResult(rezultat.toString());
+			m_view.setRest("-");
+			
+		}catch(NumberFormatException exp)
+		{
+			m_view.showError("Bad input!");
+		}
+		catch(BadInp ex)
+		{
+			m_view.showError("You forgot to put 1 grade!");
+		}
+		
+		
+	}
+}
+
+
+}
+	
+
+
+
+
+
